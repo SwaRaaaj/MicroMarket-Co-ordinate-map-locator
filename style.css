@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #4caf50, #2196f3); /* Background gradient */
+    color: #fff; /* Text color */
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 50px auto; /* Increased top and bottom margin for better spacing */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* White background with transparency */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    text-align: center; /* Center-align form elements */
+    margin-bottom: 20px;
+  }
+  
+  form input[type="text"] {
+    width: calc(50% - 10px); /* Adjusted width and increased margin */
+    margin-right: 10px;
+    padding: 10px; /* Increased padding for input boxes */
+    border: 1px solid #fff; /* White border */
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.9); /* White background with transparency */
+    color: #000; /* Text color */
+  }
+  
+  form button {
+    padding: 10px 20px; /* Increased padding for button */
+    margin-top: 10px; /* Added margin-top for spacing */
+    background-color: #ff0000; /* Red button background */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px #000; /* Text shadow */
+  }
+  
+  form button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+  }
+  

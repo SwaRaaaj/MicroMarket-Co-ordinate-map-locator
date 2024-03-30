@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Micro Market Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #4CAF50, #2196F3);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    
+    h1 {
+      margin-bottom: 20px;
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    form input[type="text"] {
+      width: 200px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #fff;
+      color: #000;
+    }
+    
+    button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      background-color: #f44336;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #d32f2f;
+    }
+    
+    #map {
+      width: 80%;
+      height: 400px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <h1>Find Micro Market</h1>
+  <form id="coordinateForm">
+    Latitude: <input type="text" id="latitude"><br>
+    Longitude: <input type="text" id="longitude"><br>
+    <button type="submit">Find Micro Market</button>
+  </form>
+  <div id="map"></div>
+  
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const microMarkets = [
+      { name: 'Koramangala', minLat: 12.9166, maxLat: 12.9629, minLng: 77.6057, maxLng: 77.6418 },
+      { name: 'Indiranagar', minLat: 12.9612, maxLat: 12.9829, minLng: 77.6125, maxLng: 77.6495 },
+      { name: 'Whitefield', minLat: 12.9615, maxLat: 12.9914, minLng: 77.7046, maxLng: 77.7626 },
+      { name: 'Electronic City', minLat: 12.8322, maxLat: 12.8894, minLng: 77.6444, maxLng: 77.7088 },
+      { name: 'HSR Layout', minLat: 12.8937, maxLat: 12.9247, minLng: 77.6236, maxLng: 77.6582 },
+      { name: 'Jayanagar', minLat: 12.9111, maxLat: 12.9382, minLng: 77.5781, maxLng: 77.6188 },
+      { name: 'Marathahalli', minLat: 12.9105, maxLat: 12.9714, minLng: 77.6936, maxLng: 77.7206 },
+      { name: 'BTM Layout', minLat: 12.9077, maxLat: 12.9423, minLng: 77.5935, maxLng: 77.6265 },
+      { name: 'Bannerghatta Road', minLat: 12.8576, maxLat: 12.9148, minLng: 77.5881, maxLng: 77.6356 },
+      { name: 'Hebbal', minLat: 13.0218, maxLat: 13.0733, minLng: 77.5776, maxLng: 77.6198 }
+    ];
+
+    document.getElementById('coordinateForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const latitude = parseFloat(document.getElementById('latitude').value);
+      const longitude = parseFloat(document.getElementById('longitude').value);
+      const microMarket = findMicroMarket(latitude, longitude);
+      if (microMarket) {
+        showOnMap(latitude, longitude, microMarket);
+      } else {
+        alert('Coordinates not found in any micro market!');
+      }
+    });
+
+    function findMicroMarket(latitude, longitude) {
+      for (const market of microMarkets) {
+        if (latitude >= market.minLat && latitude <= market.maxLat &&
+            longitude >= market.minLng && longitude <= market.maxLng) {
+          return market;
+        }
+      }
+      return null; // No micro market found
+    }
+
+    function showOnMap(latitude, longitude, microMarket) {
+      const map = L.map('map').setView([latitude, longitude], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      
+      // Draw rectangle covering the micro market area
+      L.rectangle([
+        [microMarket.minLat, microMarket.minLng],
+        [microMarket.maxLat, microMarket.maxLng]
+      ], {
+        color: 'red',
+        weight: 2,
+        fillOpacity: 0.1
+      }).addTo(map);
+    }
+  </script>
+</body>
+</html>
