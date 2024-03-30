@@ -61,3 +61,23 @@ body {
       }
     }
   
+    
+    #map {
+      width: 60%;
+      height: 60vh; /* Adjusted height to 60% of the viewport height */
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    /* Media queries for responsiveness */
+    @media only screen and (max-width: 768px) {
+      #map {
+        height: 40vh; /* Adjusted height for smaller screens */
+      }
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 1024px) {
+      #map {
+        height: 50vh; /* Adjusted height for medium screens */
+      }
+    }
